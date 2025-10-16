@@ -17,7 +17,7 @@ On macOS:
 brew install ffmpeg
 
 📦 1. Clone the project
-git clone https://github.com/justphemi/movmp4.git
+git clone https://github.com/justphemi/movtomp4.git
 cd movmp4
 
 🧪 2. Create and activate a virtual environment
