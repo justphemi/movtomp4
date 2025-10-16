@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MOV to MP4 Converter</title>
+</head>
+<body>
+    <h1>MOV to MP4 Converter</h1>
+    <form id="uploadForm">
+        <input type="file" name="file" accept=".mov" required>
+        <button type="submit">Convert</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        const form = document.getElementById("uploadForm");
+        const result = document.getElementById("result");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fileInput = form.querySelector("input[type=file]");
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            result.textContent = "Converting... please wait";
+
+            const response = await fetch("/convert", {
+                method: "POST",
+                body: formData
+            });
+            const data = await response.json();
+            if(data.download_url){
+                result.innerHTML = `<a href="${data.download_url}" download>Download MP4</a>`;
+            } else if(data.error){
+                result.textContent = data.error;
+            }
+        });
+    </script>
+</body>
+</html>
